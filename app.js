@@ -1,4 +1,4 @@
-const API_KEY = "YAK";
+const API_KEY = "17804ab9faaf57baaac8991c20bbf18d";
 
 const searchForm = document.querySelector(".search-form");
 const cityInput = document.querySelector("#city-input");
@@ -34,7 +34,7 @@ async function getWeather(city) {
 }
 
 function displayWeather(data) {
-
+    const weatherIcon = document.querySelector("#weather-icon");
     const cityName = document.querySelector("#city-name");
     const description = document.querySelector("#weather-description");
     const temperature = document.querySelector("#temperature");
@@ -42,9 +42,12 @@ function displayWeather(data) {
     const windSpeed = document.querySelector("#wind-speed");
     const feelsLike = document.querySelector("#feels-like");
 
-
+    
+    weatherIcon.src = 
+    `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
     cityName.textContent = data.name;
-
+    
+    weatherIcon.classList.remove("hidden");
     description.textContent = data.weather[0].description;
 
     temperature.textContent = Math.round(data.main.temp);
@@ -60,8 +63,24 @@ function showError(message) {
 
     const cityName = document.querySelector("#city-name");
     const description = document.querySelector("#weather-description");
+    const temperature = document.querySelector("#temperature");
+    const humidity = document.querySelector("#humidity");
+    const windSpeed = document.querySelector("#wind-speed");
+    const feelsLike = document.querySelector("#feels-like");
+    const weatherIcon = document.querySelector("#weather-icon");
+
 
     cityName.textContent = "Error";
 
     description.textContent = message;
+
+    temperature.textContent = "--";
+
+    humidity.textContent = "--%";
+
+    windSpeed.textContent = "--";
+
+    feelsLike.textContent = "--°C";
+
+    weatherIcon.classList.add("hidden");
 }

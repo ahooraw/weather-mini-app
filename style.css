@@ -78,3 +78,12 @@ h1 {
 .detail strong {
     font-size: 14px;
 }
+
+#weather-icon {
+    width: 100px;
+    height: 100px;
+}
+
+.hidden {
+    display: none;
+}
