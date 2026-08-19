@@ -34,6 +34,7 @@ async function getWeather(city) {
 }
 
 function displayWeather(data) {
+    const weatherCondition = data.weather[0].main.toLowerCase();
     const weatherIcon = document.querySelector("#weather-icon");
     const cityName = document.querySelector("#city-name");
     const description = document.querySelector("#weather-description");
@@ -42,11 +43,13 @@ function displayWeather(data) {
     const windSpeed = document.querySelector("#wind-speed");
     const feelsLike = document.querySelector("#feels-like");
 
+
+
     
     weatherIcon.src = 
     `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
     cityName.textContent = data.name;
-    
+    setWeatherTheme(weatherCondition);
     weatherIcon.classList.remove("hidden");
     description.textContent = data.weather[0].description;
 
@@ -57,6 +60,7 @@ function displayWeather(data) {
     windSpeed.textContent = `${data.wind.speed} m/s`;
 
     feelsLike.textContent = `${Math.round(data.main.feels_like)}°C`;
+
 }
 
 function showError(message) {
@@ -83,4 +87,38 @@ function showError(message) {
     feelsLike.textContent = "--°C";
 
     weatherIcon.classList.add("hidden");
+}
+
+function setWeatherTheme(condition) {
+
+    const body = document.body;
+
+    body.className = "";
+
+    switch (condition) {
+
+        case "clear":
+            body.classList.add("weather-clear");
+            break;
+
+        case "clouds":
+            body.classList.add("weather-clouds");
+            break;
+
+        case "rain":
+        case "drizzle":
+            body.classList.add("weather-rain");
+            break;
+
+        case "snow":
+            body.classList.add("weather-snow");
+            break;
+
+        case "thunderstorm":
+            body.classList.add("weather-thunderstorm");
+            break;
+
+        default:
+            body.classList.add("weather-default");
+    }
 }

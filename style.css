@@ -213,3 +213,53 @@ h1 {
     display:none;
 
 }
+
+/* Weather Themes */
+
+.weather-clear {
+    background: linear-gradient(
+        135deg,
+        #172554,
+        #0f172a
+    );
+}
+
+.weather-clouds {
+    background: linear-gradient(
+        135deg,
+        #334155,
+        #0f172a
+    );
+}
+
+.weather-rain {
+    background: linear-gradient(
+        135deg,
+        #0c4a6e,
+        #020617
+    );
+}
+
+.weather-snow {
+    background: linear-gradient(
+        135deg,
+        #164e63,
+        #0f172a
+    );
+}
+
+.weather-thunderstorm {
+    background: linear-gradient(
+        135deg,
+        #312e81,
+        #020617
+    );
+}
+
+.weather-default {
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #020617
+    );
+}
