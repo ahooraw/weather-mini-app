@@ -34,6 +34,9 @@ async function getWeather(city) {
 }
 
 function displayWeather(data) {
+    const tempMin = document.querySelector("#temp-min");
+    const tempMax = document.querySelector("#temp-max");
+    const country = document.querySelector("#country");
     const weatherCondition = data.weather[0].main.toLowerCase();
     const weatherIcon = document.querySelector("#weather-icon");
     const cityName = document.querySelector("#city-name");
@@ -42,7 +45,8 @@ function displayWeather(data) {
     const humidity = document.querySelector("#humidity");
     const windSpeed = document.querySelector("#wind-speed");
     const feelsLike = document.querySelector("#feels-like");
-
+    const sunrise = document.querySelector("#sunrise");
+    const sunset = document.querySelector("#sunset");
 
 
     
@@ -52,13 +56,14 @@ function displayWeather(data) {
     setWeatherTheme(weatherCondition);
     weatherIcon.classList.remove("hidden");
     description.textContent = data.weather[0].description;
-
+    sunrise.textContent = formatTime(data.sys.sunrise);
+    sunset.textContent = formatTime(data.sys.sunset);
     temperature.textContent = Math.round(data.main.temp);
-
     humidity.textContent = `${data.main.humidity}%`;
-
+    tempMin.textContent = `${Math.round(data.main.temp_min)}°C`;
+    tempMax.textContent = `${Math.round(data.main.temp_max)}°C`;
+    country.textContent = data.sys.country;
     windSpeed.textContent = `${data.wind.speed} m/s`;
-
     feelsLike.textContent = `${Math.round(data.main.feels_like)}°C`;
 
 }
@@ -72,6 +77,11 @@ function showError(message) {
     const windSpeed = document.querySelector("#wind-speed");
     const feelsLike = document.querySelector("#feels-like");
     const weatherIcon = document.querySelector("#weather-icon");
+    const tempMin = document.querySelector("#temp-min");
+    const tempMax = document.querySelector("#temp-max");
+    const country = document.querySelector("#country");
+    const sunrise = document.querySelector("#sunrise");
+    const sunset = document.querySelector("#sunset");
 
 
     cityName.textContent = "Error";
@@ -85,7 +95,11 @@ function showError(message) {
     windSpeed.textContent = "--";
 
     feelsLike.textContent = "--°C";
-
+    tempMin.textContent = "--°C";
+    tempMax.textContent = "--°C";
+    country.textContent = "--";
+    sunrise.textContent = "--:--";
+    sunset.textContent = "--:--";
     weatherIcon.classList.add("hidden");
 }
 
@@ -121,4 +135,12 @@ function setWeatherTheme(condition) {
         default:
             body.classList.add("weather-default");
     }
+}
+
+
+function formatTime(timestamp) {
+    return new Date(timestamp * 1000).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
 }
