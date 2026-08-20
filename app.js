@@ -3,6 +3,7 @@ const API_KEY = "f0f8290b2747f5683810653d4cc41fdd";
 const searchForm = document.querySelector(".search-form");
 const cityInput = document.querySelector("#city-input");
 const locationButton = document.querySelector("#location-button");
+const loading = document.querySelector("#loading");
 
 locationButton.addEventListener("click", () => {
     getUserLocation();
@@ -22,19 +23,25 @@ searchForm.addEventListener("submit", (event) => {
 
 async function getWeather(city) {
     const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_KEY}`;
-
+    showLoading();
+    
     try {
         const response = await fetch(API_URL);
         const data = await response.json();
 
         if (data.cod !== 200) {
             showError(data.message);
+            hideLoading()
+
             return;
         }
 
          displayWeather(data);
+         hideLoading()
     } catch (error) {
         console.error("Error:", error);
+        showError("Something went wrong. Please try again.");
+        hideLoading();
     }
 }
 
@@ -174,7 +181,7 @@ async function getWeatherByLocation(latitude, longitude) {
 
     const API_URL =
         `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`;
-
+    showLoading()
     try {
 
         const response = await fetch(API_URL);
@@ -182,16 +189,25 @@ async function getWeatherByLocation(latitude, longitude) {
 
         if (data.cod !== 200) {
             showError(data.message);
+            hideLoading()
             return;
         }
 
         displayWeather(data);
-
+        hideLoading()
     } catch (error) {
 
         console.error("Error:", error);
-
         showError("Something went wrong. Please try again.");
+        hideLoading()
 
     }
+}
+
+function showLoading() {
+    loading.classList.remove("hidden");
+}
+
+function hideLoading() {
+    loading.classList.add("hidden");
 }
