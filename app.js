@@ -1,4 +1,4 @@
-const API_KEY = "f0f8290b2747f5683810653d4cc41fdd";
+const API_KEY = "yak";
 
 const searchForm = document.querySelector(".search-form");
 const cityInput = document.querySelector("#city-input");
@@ -206,8 +206,12 @@ async function getWeatherByLocation(latitude, longitude) {
 
 function showLoading() {
     loading.classList.remove("hidden");
+    searchForm.querySelector("button").disabled = true;
+    locationButton.disabled = true;
 }
 
 function hideLoading() {
     loading.classList.add("hidden");
+    searchForm.querySelector("button").disabled = false;
+    locationButton.disabled = false;
 }

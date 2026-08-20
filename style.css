@@ -300,6 +300,13 @@ h1 {
         transform: rotate(360deg);
     }
 }
+
+.search-form button:disabled,
+#location-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
 .hidden {
     display:none;
 }
