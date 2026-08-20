@@ -1,7 +1,12 @@
-const API_KEY = "yak";
+const API_KEY = "f0f8290b2747f5683810653d4cc41fdd";
 
 const searchForm = document.querySelector(".search-form");
 const cityInput = document.querySelector("#city-input");
+const locationButton = document.querySelector("#location-button");
+
+locationButton.addEventListener("click", () => {
+    getUserLocation();
+});
 
 searchForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -143,4 +148,50 @@ function formatTime(timestamp) {
         hour: "2-digit",
         minute: "2-digit"
     });
+}
+
+function getUserLocation() {
+
+    if (!navigator.geolocation) {
+        showError("Geolocation is not supported by your browser.");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+
+            getWeatherByLocation(latitude, longitude);
+        },
+        () => {
+            showError("Unable to access your location.");
+        }
+    );
+}
+
+async function getWeatherByLocation(latitude, longitude) {
+
+    const API_URL =
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${API_KEY}`;
+
+    try {
+
+        const response = await fetch(API_URL);
+        const data = await response.json();
+
+        if (data.cod !== 200) {
+            showError(data.message);
+            return;
+        }
+
+        displayWeather(data);
+
+    } catch (error) {
+
+        console.error("Error:", error);
+
+        showError("Something went wrong. Please try again.");
+
+    }
 }

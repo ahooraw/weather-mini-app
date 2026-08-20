@@ -259,3 +259,24 @@ h1 {
         #020617
     );
 }
+
+#location-button {
+    display: block;
+    margin: -20px auto 30px;
+    background: transparent;
+    border: none;
+    color: #38bdf8;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+#location-button:hover {
+    color: #7dd3fc;
+    transform: translateY(-1px);
+}
+
+#location-button span {
+    margin-right: 5px;
+}
