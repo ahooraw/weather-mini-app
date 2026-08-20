@@ -1,5 +1,9 @@
-const API_KEY = "yak";
+const API_KEY = "bb6a8e23a1074575b72cb35bc8e2090f";
 
+
+const historySection = document.querySelector(".search-history");
+const historyList = document.querySelector("#history-list");
+const clearHistoryButton = document.querySelector("#clear-history");
 const searchForm = document.querySelector(".search-form");
 const cityInput = document.querySelector("#city-input");
 const locationButton = document.querySelector("#location-button");
@@ -7,6 +11,13 @@ const loading = document.querySelector("#loading");
 
 locationButton.addEventListener("click", () => {
     getUserLocation();
+});
+
+clearHistoryButton.addEventListener("click", () => {
+
+    localStorage.removeItem("weatherSearches");
+
+    renderSearchHistory();
 });
 
 searchForm.addEventListener("submit", (event) => {
@@ -38,6 +49,7 @@ async function getWeather(city) {
 
          displayWeather(data);
          hideLoading()
+         saveSearch(data.name);
     } catch (error) {
         console.error("Error:", error);
         showError("Something went wrong. Please try again.");
@@ -215,3 +227,57 @@ function hideLoading() {
     searchForm.querySelector("button").disabled = false;
     locationButton.disabled = false;
 }
+
+function saveSearch(city) {
+
+    let searches = JSON.parse(
+        localStorage.getItem("weatherSearches")
+    ) || [];
+
+    searches = searches.filter(
+        search => search.toLowerCase() !== city.toLowerCase()
+    );
+
+    searches.unshift(city);
+    searches = searches.slice(0, 5);
+    localStorage.setItem(
+        "weatherSearches",
+        JSON.stringify(searches)
+    );
+
+    renderSearchHistory();
+}
+
+function renderSearchHistory() {
+
+    const searches = JSON.parse(
+        localStorage.getItem("weatherSearches")
+    ) || [];
+
+    historyList.innerHTML = "";
+
+    if (searches.length === 0) {
+        historySection.classList.add("hidden");
+        return;
+    }
+
+    historySection.classList.remove("hidden");
+
+    searches.forEach(city => {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.classList.add("history-item");
+
+        button.textContent = city;
+
+        button.addEventListener("click", () => {
+            getWeather(city);
+        });
+
+        historyList.appendChild(button);
+    });
+}
+
+renderSearchHistory();

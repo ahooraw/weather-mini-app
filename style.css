@@ -307,6 +307,68 @@ h1 {
     cursor: not-allowed;
     transform: none;
 }
+
+.search-history {
+    margin: -10px 0 30px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 12px;
+}
+
+.history-header h3 {
+    font-size: 14px;
+    color: #cbd5e1;
+}
+
+#clear-history {
+    background: none;
+    border: none;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#clear-history:hover {
+    color: #f87171;
+}
+
+#history-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.history-item {
+    padding: 8px 12px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.05);
+
+    color: #cbd5e1;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.history-item:hover {
+    background: rgba(56,189,248,0.12);
+    color: #38bdf8;
+    transform: translateY(-1px);
+}
 .hidden {
     display:none;
 }
