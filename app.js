@@ -2,7 +2,7 @@ const API_KEY = "5ecf24c82666cae97ec715bd57232f89";
 
 
 const historySection = document.querySelector(".search-history");
-const historyList = document.querySelecلهفtor("#history-list");
+const historyList = document.querySelector("#history-list");
 const clearHistoryButton = document.querySelector("#clear-history");
 const searchForm = document.querySelector(".search-form");
 const cityInput = document.querySelector("#city-input");
