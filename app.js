@@ -1,4 +1,4 @@
-const API_KEY = "bb6a8e23a1074575b72cb35bc8e2090f";
+const API_KEY = "yak";
 
 
 const historySection = document.querySelector(".search-history");
